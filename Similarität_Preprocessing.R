@@ -63,9 +63,10 @@ calculateSimilarity <- function(dataframe, column, dist = "lv", threshold = 0.35
     else{
       dataframe$Context_Above[i-1] <- 0
     }
-    dataframe$Context_Below[nrow(dataframe)] <- 1
-    dataframe$Context_Above[1] <- 1
   }
+  dataframe$Context_Above[nrow(dataframe)] <- 1
+  dataframe$Context_Above[1] <- 1
+  
   
   dataframe$Context_Below <- NA
   
@@ -76,11 +77,12 @@ calculateSimilarity <- function(dataframe, column, dist = "lv", threshold = 0.35
     else{
       dataframe$Context_Below[i+1] <- 0
     }
+
+  }
     dataframe$Context_Below[nrow(dataframe)] <- 1
     dataframe$Context_Below[1] <- 1
-  }
   
-  dataframe$SimSum <- NA
+    dataframe$SimSum <- NA
   
   for(i in 1:(nrow(dataframe))) {
     dataframe$SimSum[i] <- sum(dataframe$Context_Above[i], dataframe$Context_Below[i], dataframe$Threshold[i])
