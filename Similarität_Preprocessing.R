@@ -83,8 +83,13 @@ calculateSimilarity <- function(dataframe, column, dist = "lv", threshold = 0.35
   dataframe$SimSum <- NA
   
   for(i in 1:(nrow(dataframe))) {
-    dataframe$SimSum[i] <- sum(dataframe$Context_Above[i], dataframe$Context_Below[i])
+    dataframe$SimSum[i] <- sum(dataframe$Context_Above[i], dataframe$Context_Below[i], dataframe$Threshold[i])
   }
+  
+  # get rid of "helper columns"
+  dataframe$Context_Above <- NULL
+  dataframe$Context_Below <- NULL
+  dataframe$Threshold <- NULL
   # saves df as csv optionally, file = path
   if(export == T){
     write.csv2(dataframe, file)
